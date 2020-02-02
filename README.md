@@ -8,7 +8,7 @@ The idea here is to simplify the process of configuring the steps especially fir
 more time can be dedicated towards the tracking side instead of spending hours worth of time on dev-ops side.
 
 This blog [Install Snowplow On The Google Cloud Platform][simoahava] has inspired me for comparison of architecture, depending on experience level of your dev-ops, might take hours or days to complete until the bottom of the page. 
-The time can be spent instead more towards data modelling and tracking part and leave the rest to the dev-ops engineer to final production deployment.
+The time can be spent instead more towards data modelling and tracking part and leave the rest to the dev-ops for production deployment.
 
 Original design of deployment illustrated below:
 ![alt text](res/gcs.png "GCS deployment")
@@ -22,7 +22,7 @@ Snowplow-Local should be used for non-production environment only i.e local or s
 
 I wish it could be more simpler but I expect here you should at least know how to execute command using terminal or console.
 
-1. Download and install [jdk]. Make sure the version is 8.
+1. Download and install [jdk]. Ensure the version is 8.
 2. Download this zip file [zip]
 3. Decompress it `unzip snowplow-local.zip`
 4. Run the jar. `java -jar snowplow-local-0.1.jar --config application.conf`

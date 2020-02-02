@@ -1,0 +1,82 @@
+<html>
+<head>
+</head>
+<body>
+<h1>Snowplow Tracking Test</h1>
+<a target="_blank" href="https://www.linkedin.com/in/mahadir/">Click Here should fire link tracker</a>
+<div>
+    <img src="https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2018/02/google-pacman-796x419.jpg">
+</div>
+<div>
+    <p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, commodo vitae, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. Donec non enim in turpis pulvinar facilisis. Ut felis. Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor, facilisis luctus, metus</p>
+</div>
+
+<script type="text/javascript" async=1>
+    ;(function (p, l, o, w, i, n, g) {
+        if (!p[i]) {
+            p.GlobalSnowplowNamespace = p.GlobalSnowplowNamespace || [];
+            p.GlobalSnowplowNamespace.push(i);
+            p[i] = function () {
+                (p[i].q = p[i].q || []).push(arguments)
+            };
+            p[i].q = p[i].q || [];
+            n = l.createElement(o);
+            g = l.getElementsByTagName(o)[0];
+            n.async = 1;
+            n.src = w;
+            g.parentNode.insertBefore(n, g)
+        }
+    }(window, document, "script", "snw_tracker.js", "local_snwplw"));
+</script>
+
+<script>
+    local_snwplw("newTracker", "cf", "localhost:8080", {
+        appId: "testlocal",
+        platform: "web",
+        cookieDomain: null,
+        discoverRootDomain: true,
+        cookieName: "_sp_",
+        encodeBase64: false,
+        respectDoNotTrack: false,
+        userFingerprint: true,
+        userFingerprintSeed: 5385926564,
+        pageUnloadTimer: 500,
+        forceSecureTracker: false,
+        eventMethod: "post",
+        maxPostBytes: 45000,
+        cookieLifetime: 86400 * 31,
+        stateStorageStrategy: "localStorage",
+        contexts: {
+            webPage: true,
+            performanceTiming: true,
+            gaCookies: true,
+            geolocation: false
+        }
+    });
+
+    // callbacks
+    local_snwplw(function () {
+        console.log("DEBUG sp.js has loaded");
+
+        //  Utility function for attaching listeners to the window
+        var addListener = function(evt, cb) {
+            if (window.addEventListener) {
+                window.addEventListener(evt, cb);
+            } else if (window.attachEvent) {
+                window.attachEvent('on' + evt, cb);
+            }
+        };
+
+        addListener('beforeunload', function () {
+            //trigger beacon
+            local_snwplw('updatePageActivity');
+        });
+    });
+
+    //send beacon after 10s at 5s interval
+    local_snwplw('enableActivityTracking', 10, 5);
+    local_snwplw('enableLinkClickTracking');
+    local_snwplw('trackPageView', document.title, );
+</script>
+</body>
+</html>
