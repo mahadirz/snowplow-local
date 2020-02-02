@@ -4,8 +4,8 @@
 Snowplow Local is a bundle of collector, Enrich and Loader stitched together to meet requirements 
 for easy and fast local evaluation and testing environment for Snowplow Analytics. 
 
-The idea here is to simplify the process of configuring the steps especially first time user, as for Analytics Developer 
-more time can be dedicated towards the tracking side instead of spending hours worth of time on dev-ops side.
+The idea here is to simplify the process of configuring the steps especially to first time user, as for Analytics Developer 
+more time can be dedicated towards the tracking side instead of spending hours worth of time on dev-ops.
 
 This blog [Install Snowplow On The Google Cloud Platform][simoahava] has inspired me for comparison of architecture, depending on experience level of your dev-ops, might take hours or days to complete until the bottom of the page. 
 The time can be spent instead more towards data modelling and tracking part and leave the rest to the dev-ops for production deployment.
@@ -28,6 +28,7 @@ I wish it could be more simpler but I expect here you should at least know how t
 4. Enter into the directory `cd snowplow-local`
 5. Run the jar file. `java -jar snowplow-local-0.1.jar --config confs/application.conf`
 
+
 ### Test Tracker
 
 I've included an example of web tracker inside example folder. You will need to use local web host to test, 
@@ -38,13 +39,37 @@ $ cd example
 $ php -S 0.0.0.0:8081
 ```
 
+Open http://localhost:8081/index.html using web browser.
+
+If everything runs correctly, you will start seeing json files created in ```enriched``` folder.
+
+### Configurations
+
+In the application.conf there are few lines added to handle enrichment steps as outlined below:
+```hocon
+enrich {
+    enriched = "enriched",
+    bad = "bad",
+    resolver = "confs/iglu_resolver.json",
+    enrichments = "confs/enrichments"
+  }
+```
+
+* `enriched`: the destination directory for successfully enriched events
+* `bad`: the destination directory for failed enriched events
+* `resolver`: path to iglu resolver configuration file
+* `enrichments`: optional path to [configurable enrichments][conf-enrich]
+
+Other than that you should consult the official documentation of [scala stream collector][setup] 
+
+
 
 ## Compile from source
 
 1. Install [sbt]
-2. `git clone []`
+2. `git clone https://github.com/mahadirz/snowplow-local.git`
 3. `cd snowplow-local`
-4. Execute `sbt "project stdout" assembly`
+4. Compile and assemble into jar: `sbt "project stdout" assembly`
 5. The assembled jar file is located in stout/target/scala-{version}/snowplow-local-{version}.jar
 
 
@@ -62,6 +87,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
+[conf-enrich]: https://github.com/snowplow/snowplow/wiki/Configurable-enrichments
 [zip]: https://github.com/mahadirz/snowplow-local/releases/download/v.0.1/snowplow-local.zip
 [simoahava]: https://www.simoahava.com/analytics/install-snowplow-on-the-google-cloud-platform/
 [snowplow]: http://snowplowanalytics.com
