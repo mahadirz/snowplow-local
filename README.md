@@ -23,9 +23,20 @@ Snowplow-Local should be used for non-production environment only i.e local or s
 I wish it could be more simpler but I expect here you should at least know how to execute command using terminal or console.
 
 1. Download and install [jdk]. Ensure the version is 8.
-2. Download this zip file [zip]
+2. Download the file: [Release.zip][zip]
 3. Decompress it `unzip snowplow-local.zip`
-4. Run the jar. `java -jar snowplow-local-0.1.jar --config application.conf`
+4. Enter into the directory `cd snowplow-local`
+5. Run the jar file. `java -jar snowplow-local-0.1.jar --config confs/application.conf`
+
+### Test Tracker
+
+I've included an example of web tracker inside example folder. You will need to use local web host to test, 
+For completeness purpose, I'll demonstrate using PHP command. However any local webhost should do the work such as xampp.
+
+```$bash
+$ cd example
+$ php -S 0.0.0.0:8081
+```
 
 
 ## Compile from source
@@ -51,6 +62,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
+[zip]: https://github.com/mahadirz/snowplow-local/releases/download/v.0.1/snowplow-local.zip
 [simoahava]: https://www.simoahava.com/analytics/install-snowplow-on-the-google-cloud-platform/
 [snowplow]: http://snowplowanalytics.com
 [jdk]: https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
